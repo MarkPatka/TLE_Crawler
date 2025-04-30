@@ -1,0 +1,11 @@
+D:\DEV\TLECrawlerService\Helpers\bin\Debug\net8.0\Helpers.deps.json
+D:\DEV\TLECrawlerService\Helpers\bin\Debug\net8.0\Helpers.dll
+D:\DEV\TLECrawlerService\Helpers\bin\Debug\net8.0\Helpers.pdb
+D:\DEV\TLECrawlerService\Helpers\obj\Debug\net8.0\Helpers.GeneratedMSBuildEditorConfig.editorconfig
+D:\DEV\TLECrawlerService\Helpers\obj\Debug\net8.0\Helpers.AssemblyInfoInputs.cache
+D:\DEV\TLECrawlerService\Helpers\obj\Debug\net8.0\Helpers.AssemblyInfo.cs
+D:\DEV\TLECrawlerService\Helpers\obj\Debug\net8.0\Helpers.csproj.CoreCompileInputs.cache
+D:\DEV\TLECrawlerService\Helpers\obj\Debug\net8.0\Helpers.dll
+D:\DEV\TLECrawlerService\Helpers\obj\Debug\net8.0\refint\Helpers.dll
+D:\DEV\TLECrawlerService\Helpers\obj\Debug\net8.0\Helpers.pdb
+D:\DEV\TLECrawlerService\Helpers\obj\Debug\net8.0\ref\Helpers.dll

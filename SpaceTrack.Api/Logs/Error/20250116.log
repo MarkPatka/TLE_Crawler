@@ -1,0 +1,33 @@
+16-01-2025 14:50:01 [ERR] Fail to persist TLEs received from Space-Track.org
+TLECrawler.Domain.TLEModel.TLEPersistException: Fail to persist TLEs received from Space-Track.org
+ ---> System.InvalidCastException: Недопустимая попытка использования функции GetBytes для столбца "IterationId". Функция GetBytes может использоваться только для столбцов типа Text, NText и Image.
+   at Microsoft.Data.SqlClient.SqlDataReader.GetBytes(Int32 i, Int64 dataIndex, Byte[] buffer, Int32 bufferIndex, Int32 length)
+   at TLECrawler.Infrastructure.DAL.TLERepository.Get(IEnumerable`1 hashCodes, Int32 year) in D:\DEV\TLECrawlerService\TLECrawler.Infrastucture\DAL\TLERepository.cs:line 108
+   at TLECrawler.Infrastructure.Services.TLEService.GetAlreadyPersistedTLEs(List`1 filteredTLEsToCheck) in D:\DEV\TLECrawlerService\TLECrawler.Infrastucture\Services\TLEService.cs:line 151
+   at TLECrawler.Infrastructure.Services.TLEService.PersistUnic(TLE_ST[] tles, Int32 iterationId) in D:\DEV\TLECrawlerService\TLECrawler.Infrastucture\Services\TLEService.cs:line 27
+   --- End of inner exception stack trace ---
+16-01-2025 14:50:02 [ERR] Fail to persist TLEs received from Space-Track.org
+System.InvalidCastException: Недопустимая попытка использования функции GetBytes для столбца "IterationId". Функция GetBytes может использоваться только для столбцов типа Text, NText и Image.
+   at Microsoft.Data.SqlClient.SqlDataReader.GetBytes(Int32 i, Int64 dataIndex, Byte[] buffer, Int32 bufferIndex, Int32 length)
+   at TLECrawler.Infrastructure.DAL.TLERepository.Get(IEnumerable`1 hashCodes, Int32 year) in D:\DEV\TLECrawlerService\TLECrawler.Infrastucture\DAL\TLERepository.cs:line 108
+   at TLECrawler.Infrastructure.Services.TLEService.GetAlreadyPersistedTLEs(List`1 filteredTLEsToCheck) in D:\DEV\TLECrawlerService\TLECrawler.Infrastucture\Services\TLEService.cs:line 151
+   at TLECrawler.Infrastructure.Services.TLEService.PersistUnic(TLE_ST[] tles, Int32 iterationId) in D:\DEV\TLECrawlerService\TLECrawler.Infrastucture\Services\TLEService.cs:line 27
+16-01-2025 14:50:02 [ERR] Fail to persist TLEs received from Space-Track.org
+TLECrawler.Domain.TLEModel.TLEPersistException: Fail to persist TLEs received from Space-Track.org
+ ---> System.InvalidCastException: Недопустимая попытка использования функции GetBytes для столбца "IterationId". Функция GetBytes может использоваться только для столбцов типа Text, NText и Image.
+   at Microsoft.Data.SqlClient.SqlDataReader.GetBytes(Int32 i, Int64 dataIndex, Byte[] buffer, Int32 bufferIndex, Int32 length)
+   at TLECrawler.Infrastructure.DAL.TLERepository.Get(IEnumerable`1 hashCodes, Int32 year) in D:\DEV\TLECrawlerService\TLECrawler.Infrastucture\DAL\TLERepository.cs:line 108
+   at TLECrawler.Infrastructure.Services.TLEService.GetAlreadyPersistedTLEs(List`1 filteredTLEsToCheck) in D:\DEV\TLECrawlerService\TLECrawler.Infrastucture\Services\TLEService.cs:line 151
+   at TLECrawler.Infrastructure.Services.TLEService.PersistUnic(TLE_ST[] tles, Int32 iterationId) in D:\DEV\TLECrawlerService\TLECrawler.Infrastucture\Services\TLEService.cs:line 27
+   --- End of inner exception stack trace ---
+16-01-2025 14:50:02 [ERR] The 1 attempt to repeat the operation was unsuccessful. Waiting for 5 minutes to the next attempt
+TLECrawler.Domain.TLEModel.TLEPersistException: Fail to persist TLEs received from Space-Track.org
+ ---> System.InvalidCastException: Недопустимая попытка использования функции GetBytes для столбца "IterationId". Функция GetBytes может использоваться только для столбцов типа Text, NText и Image.
+   at Microsoft.Data.SqlClient.SqlDataReader.GetBytes(Int32 i, Int64 dataIndex, Byte[] buffer, Int32 bufferIndex, Int32 length)
+   at TLECrawler.Infrastructure.DAL.TLERepository.Get(IEnumerable`1 hashCodes, Int32 year) in D:\DEV\TLECrawlerService\TLECrawler.Infrastucture\DAL\TLERepository.cs:line 108
+   at TLECrawler.Infrastructure.Services.TLEService.GetAlreadyPersistedTLEs(List`1 filteredTLEsToCheck) in D:\DEV\TLECrawlerService\TLECrawler.Infrastucture\Services\TLEService.cs:line 151
+   at TLECrawler.Infrastructure.Services.TLEService.PersistUnic(TLE_ST[] tles, Int32 iterationId) in D:\DEV\TLECrawlerService\TLECrawler.Infrastucture\Services\TLEService.cs:line 27
+   --- End of inner exception stack trace ---
+   at TLECrawler.Infrastructure.Services.TLEService.PersistUnic(TLE_ST[] tles, Int32 iterationId) in D:\DEV\TLECrawlerService\TLECrawler.Infrastucture\Services\TLEService.cs:line 49
+   at TLECrawler.Infrastructure.Services.IterationService.Persist() in D:\DEV\TLECrawlerService\TLECrawler.Infrastucture\Services\IterationService.cs:line 141
+   at TLECrawler.Infrastructure.Services.IterationService.RepeatIterationUnitAsync(IterationUnit unit, String unitName) in D:\DEV\TLECrawlerService\TLECrawler.Infrastucture\Services\IterationService.cs:line 176

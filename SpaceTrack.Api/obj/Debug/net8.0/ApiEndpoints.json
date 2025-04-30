@@ -1,0 +1,114 @@
+[
+  {
+    "ContainingType": "TLECrawler.Api.Modules.SQLModeule\u002B\u003C\u003Ec",
+    "Method": "\u003CMapEndpoints\u003Eb__1_1",
+    "RelativePath": "GetDatabaseEncryption",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "TLECrawler.Api.Modules.AuthenticationModule\u002B\u003C\u003Ec",
+    "Method": "\u003CMapEndpoints\u003Eb__1_0",
+    "RelativePath": "GetEncryptedUser",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "TLECrawler.Api.Modules.IterationModule\u002B\u003C\u003Ec",
+    "Method": "\u003CMapEndpoints\u003Eb__1_0",
+    "RelativePath": "GetLastIteration",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "TLECrawler.Api.Modules.IterationModule\u002B\u003C\u003Ec",
+    "Method": "\u003CMapEndpoints\u003Eb__1_1",
+    "RelativePath": "GetSchedule",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "TLECrawler.Api.Modules.IterationModule\u002B\u003C\u003Ec",
+    "Method": "\u003CMapEndpoints\u003Eb__1_2",
+    "RelativePath": "MakeNewIteration",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "TLECrawler.Api.Modules.TLEModule\u002B\u003C\u003Ec",
+    "Method": "\u003CMapEndpoints\u003Eb__1_0",
+    "RelativePath": "MigrateTLEs",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "TLECrawler.Api.Modules.SQLModeule\u002B\u003C\u003Ec",
+    "Method": "\u003CMapEndpoints\u003Eb__1_0",
+    "RelativePath": "SetSonnection",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  }
+]
