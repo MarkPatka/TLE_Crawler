@@ -1,0 +1,46 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "TLECrawler.Api",
+    "version": "1.0"
+  },
+  "paths": {
+    "/GetLastIteration": {
+      "get": {
+        "tags": [
+          "TLECrawler.Api"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/GetSchedule": {
+      "get": {
+        "tags": [
+          "TLECrawler.Api"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/SetSonnection": {
+      "get": {
+        "tags": [
+          "TLECrawler.Api"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": { }
+}

@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "piAffNpE6m1/ZyJ+khK3j7Kk+5cOOgWpdydk/DNOQj8=",
+  "Source": "TLECrawler.Api",
+  "BasePath": "_content/TLECrawler.Api",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
