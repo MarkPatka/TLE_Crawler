@@ -5,6 +5,7 @@ public record SessionSettings
     public int SleepTime            { get; init; }
     public int RepeatTimes          { get; init; }
     public int RepeatAfterMinutes   { get; init; }
+    public int AddDays              { get; init; }
     public bool UseSleepTime        { get; init; }
     public bool NeedRepeatAfterFail { get; init; }
     public bool UseFromDateTime     { get; init; }

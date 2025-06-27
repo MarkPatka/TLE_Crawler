@@ -242,7 +242,6 @@ public class TLERepository : ITLERepository
     }
     public async Task InsertManyAsync(List<TLE> tles)
     {
-        var duplicate = tles.FirstOrDefault(t => t.Hash.SimpleEqualityCheck(new byte[16]));
         DataTable dataTable = CreateInMemoryTleDataTable(tles);
 
         using SqlConnection connection = _tleDataBase.InitializeConnection();
