@@ -21,14 +21,6 @@ public class TLEModule : IModule
     }
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
     {
-#if DEBUG
-        endpoints.MapGet("/MigrateTLEs", async (ITLERepository _oldTledb) =>
-        {
-            var cnt = _oldTledb.MigrateTLEs();
-            await cnt;
-            return Results.Ok(cnt.Status);
-        });
-#endif
         return endpoints;
     }
 

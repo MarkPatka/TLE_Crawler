@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TLECrawler.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+de98671ebf93192c967534890d23eecdf0da0d4c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0778580931b74b8d3518dc3ac0b11fecd376376a")]
 [assembly: System.Reflection.AssemblyProductAttribute("TLECrawler.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TLECrawler.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

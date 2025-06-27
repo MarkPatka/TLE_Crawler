@@ -37,16 +37,16 @@ public class TLEDBFactory : ITLEDBFactory
     public DataBaseSettings GetDatabaseCredentials()
     {
         string source = _protector
-            .Protect("vm-tle");
+            .Protect(_databaseOptions.Value.DataSource);
 
         string catalog = _protector
-            .Protect("TLE_new");
+            .Protect(_databaseOptions.Value.InitialCatalog);
 
         string user = _protector
-            .Protect("tle_crawler");
+            .Protect(_databaseOptions.Value.UserID);
 
         string pass = _protector
-            .Protect("1234qweR");
+            .Protect(_databaseOptions.Value.Password);
 
         return new DataBaseSettings() 
         { 
