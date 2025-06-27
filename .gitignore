@@ -16,6 +16,10 @@
 .env.production
 .env.staging
 
+### Appsettings ###
+appsettings.json
+appsettings.Development.json
+
 # User-specific files
 *.rsuser
 *.suo
