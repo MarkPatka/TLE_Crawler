@@ -20,6 +20,10 @@
 appsettings.json
 appsettings.Development.json
 
+# Build results
+[Bb]in/
+[Oo]bj/
+
 # User-specific files
 *.rsuser
 *.suo
