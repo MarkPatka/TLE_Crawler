@@ -108,7 +108,10 @@ public class TLEService : ITLEService
         }
         if (PersistedTLEs.Count > 0)
         {
-            string message = $"The Database have already contained {PersistedTLEs.Count} tles from the sample received from the Space-Track";
+            string message = 
+               $"The Database have already contained {PersistedTLEs.Count} " +
+                "tles from the sample received from the Space-Track";
+
             _logger.LogInformation("{MSG}", message);
         }
         return PersistedTLEs;

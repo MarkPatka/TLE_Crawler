@@ -44,7 +44,7 @@ public class SpaceTrackService : ISpaceTrackService
         }
 
         Uri request = FormGetTLEsFromRangeRequestUrl(
-            from.Value, from.Value.AddDays(1));
+            from.Value, from.Value.AddDays(_sessionSettings.Value.AddDays));
 
         try
         {
