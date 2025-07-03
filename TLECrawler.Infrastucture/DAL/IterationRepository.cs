@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using System.Data;
 using System.Data.Common;
-using System.Threading.Tasks;
 using TLECrawler.Application.DAL;
 using TLECrawler.Domain.Common;
 using TLECrawler.Domain.IterationModel;
@@ -35,6 +34,7 @@ public class IterationRepository : IIterationRepository
             "@output_startDateTime", SqlDbType.DateTime, DateTime.UtcNow, ParameterDirection.Output);
 
         using SqlConnection connection = _tleDataBase.InitializeConnection();
+        connection.Open();
         try
         {
             _tleDataBase.ExecuteStoredProcedure(connection, "saveIteration", [outputId, isRepeat, outputStart]);
@@ -61,7 +61,8 @@ public class IterationRepository : IIterationRepository
             "@startDateTime", SqlDbType.DateTime, DateTime.UtcNow);
 
         int resultId = -1;
-        using SqlConnection connection = await _tleDataBase.InitializeConnectionAsync();
+        await using SqlConnection connection = _tleDataBase.InitializeConnection();
+        await connection.OpenAsync();
         try
         {
             var command = _tleDataBase.CreateSqlCommand(connection, IterationsSQL.InsertPreinitializedIteration());
@@ -98,6 +99,7 @@ public class IterationRepository : IIterationRepository
         string command = IterationsSQL.GetById(id);
         Iteration? result = null;
         using SqlConnection connection = _tleDataBase.InitializeConnection();
+        connection.Open();
         SqlCommand sqlCommand = _tleDataBase.CreateSqlCommand(connection, command);
         using SqlDataReader reader = sqlCommand.ExecuteReader();
 
@@ -130,6 +132,7 @@ public class IterationRepository : IIterationRepository
         string command = IterationsSQL.GetLast();
 
         using SqlConnection connection = _tleDataBase.InitializeConnection();
+        connection.Open();
         SqlCommand sqlCommand = _tleDataBase.CreateSqlCommand(connection, command);
         using SqlDataReader reader = sqlCommand.ExecuteReader();
 
@@ -173,7 +176,7 @@ public class IterationRepository : IIterationRepository
     public void CompleteIteration(int id, Iteration iteration)
     {
         using SqlConnection connection = _tleDataBase.InitializeConnection();
-
+        connection.Open();
         SqlCommand sqlCommand = _tleDataBase.CreateSqlCommand(
             connection, IterationsSQL.Update(id));
 

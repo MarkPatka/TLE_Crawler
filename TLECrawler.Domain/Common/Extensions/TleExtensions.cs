@@ -17,7 +17,7 @@ public static class TleExtensions
         return hashBytes;
     }
 
-    public static List<TLE[]> GetBatches(this IEnumerable<TLE> tles, int batchSize) =>
+    public static List<TLE[]> GetChunks(this IEnumerable<TLE> tles, int batchSize) =>
         [.. tles.Chunk(batchSize)];
    
     //List<TLE[]> batches =

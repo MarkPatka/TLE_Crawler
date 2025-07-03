@@ -57,81 +57,25 @@ public class TLEDBFactory : ITLEDBFactory
 
     public SqlConnection InitializeConnection()
     {
-        _cache.TryGetValue<string>("dbConnection", out string? connectionString);
-        if (string.IsNullOrEmpty(connectionString))
-        {
-            var options = _databaseOptions.Value;
+        var options = _databaseOptions.Value;
 
-            string Source = _protector.Unprotect(options.DataSource);
-            string Catalog = _protector.Unprotect(options.InitialCatalog);
-            string User = _protector.Unprotect(options.UserID);
-            string Password = _protector.Unprotect(options.Password);
+        string Source = _protector.Unprotect(options.DataSource);
+        string Catalog = _protector.Unprotect(options.InitialCatalog);
+        string User = _protector.Unprotect(options.UserID);
+        string Password = _protector.Unprotect(options.Password);
 
-            string cs =
-                $"Data Source={Source};" +
-                $"Initial Catalog={Catalog};" +
-                $"User ID={User};" +
-                $"Password={Password};" +
-                $"Connect Timeout={options.Timeout};" +
-                $"Encrypt=True;" +
-                $"Pooling=True;" +
-                $"Trust Server Certificate=True;";
+        string cs =
+            $"Data Source={Source};" +
+            $"Initial Catalog={Catalog};" +
+            $"User ID={User};" +
+            $"Password={Password};" +
+            $"Connect Timeout={options.Timeout};" +
+            $"Encrypt=True;" +
+            $"Pooling=True;" +
+            $"Trust Server Certificate=True;";
 
-            if (SqlServerConnected(cs))
-            {
-                _cache.Set("dbConnection", cs, new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromDays(1)));
-
-                return SetConnection(cs);
-            }
-
-            _logger.LogError("Databese connection failed");
-            throw new Exception("Databese connection failed");
-        }
-        else
-        {
-            return SetConnection(connectionString);
-        }
+        return new SqlConnection(cs);
     }
-    public async Task<SqlConnection> InitializeConnectionAsync()
-    {
-        _cache.TryGetValue<string>("dbConnection", out string? connectionString);
-        if (string.IsNullOrEmpty(connectionString))
-        {
-            var options = _databaseOptions.Value;
-
-            string Source   = _protector.Unprotect(options.DataSource);
-            string Catalog  = _protector.Unprotect(options.InitialCatalog);
-            string User     = _protector.Unprotect(options.UserID);
-            string Password = _protector.Unprotect(options.Password);
-
-            string cs =
-                $"Data Source={Source};" +
-                $"Initial Catalog={Catalog};" +
-                $"User ID={User};" +
-                $"Password={Password};" +
-                $"Connect Timeout={options.Timeout};" +
-                $"Encrypt=True;" +
-                $"Pooling=True;" +
-                $"Trust Server Certificate=True;";
-
-            if (SqlServerConnected(cs))
-            {
-                _cache.Set("dbConnection", cs, new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromDays(1)));
-
-                return await SetConnectionAsync(cs);
-            }
-
-            _logger.LogError("Databese connection failed");
-            throw new Exception("Databese connection failed");
-        }
-        else
-        {
-            return await SetConnectionAsync(connectionString);
-        }
-    }
-
     public SqlCommand CreateSqlCommand(SqlConnection connection, string sqlCommand = "", int timeout = 60)
     {
         if (connection == null)
@@ -186,35 +130,6 @@ public class TLEDBFactory : ITLEDBFactory
             throw new Exception("Transaction rollback. For more details see inner exception: ", ex);
         }
     }
-
-    public int ExecuteQuery(SqlConnection connection, string query)
-    {
-        try
-        {
-            var q = new SqlCommand(query, connection);
-            return q.ExecuteNonQuery();
-        }
-        catch (Exception ex) 
-        {
-            throw new Exception("Error occured while executing query: ", ex);
-        }        
-    }
-    
-    public async Task<int> ExecuteQueryAsync(SqlConnection connection, string query)
-    {
-        try
-        {
-            var q = new SqlCommand(query, connection);
-            var result = await q.ExecuteNonQueryAsync();
-            return result;
-        }
-        catch (Exception ex) 
-        {
-            return await Task.FromException<int>(
-                new Exception("Error occured while executing query: ", ex));
-        }     
-    }
-    
     public void ExecuteStoredProcedure(
         SqlConnection connection, 
         string procedureName, 
@@ -238,14 +153,13 @@ public class TLEDBFactory : ITLEDBFactory
             throw new Exception(ex.Message, ex.InnerException);
         }
     }
-
     public async Task<SqlDataReader> ExecuteStoredProcedureAsync(
         SqlConnection connection, 
         string procedureName, 
         SqlParameter[] sqlParameters, 
         SqlTransaction? transaction = null)
     {
-        using SqlCommand command = new(procedureName) 
+        SqlCommand command = new(procedureName) 
         {
             Transaction = transaction ?? null,
             CommandType = CommandType.StoredProcedure,
@@ -312,7 +226,7 @@ public class TLEDBFactory : ITLEDBFactory
         }
     }
 
-    public async Task<int> ExecuteStoredProcedureAsyncAsNonQueryAsync(
+    public async Task<int> ExecuteStoredProcedureAsNonQueryAsync(
         SqlConnection connection, string procedureName, SqlParameter[] sqlParameters, SqlTransaction? transaction = null)
     {
         using SqlCommand command = new(procedureName)

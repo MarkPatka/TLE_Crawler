@@ -16,9 +16,10 @@ public class SQLModule : IModule
 
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapGet("/SetSonnection", async (ITLEDBFactory _tledb) =>
+        endpoints.MapGet("/SetSonnection", (ITLEDBFactory _tledb) =>
         {
-            var connection = await _tledb.InitializeConnectionAsync();
+            var connection = _tledb.InitializeConnection();
+            connection.Open();
             return Results.Ok("DB Connection Status is: " + connection.State.ToString());
         });
 #if DEBUG
