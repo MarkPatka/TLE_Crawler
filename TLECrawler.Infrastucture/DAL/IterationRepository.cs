@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.Data;
 using System.Data.Common;
+using System.Threading.Tasks;
 using TLECrawler.Application.DAL;
 using TLECrawler.Domain.Common;
 using TLECrawler.Domain.IterationModel;
@@ -60,7 +61,7 @@ public class IterationRepository : IIterationRepository
             "@startDateTime", SqlDbType.DateTime, DateTime.UtcNow);
 
         int resultId = -1;
-        using SqlConnection connection = _tleDataBase.InitializeConnection();
+        using SqlConnection connection = await _tleDataBase.InitializeConnectionAsync();
         try
         {
             var command = _tleDataBase.CreateSqlCommand(connection, IterationsSQL.InsertPreinitializedIteration());

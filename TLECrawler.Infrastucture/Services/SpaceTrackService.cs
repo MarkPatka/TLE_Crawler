@@ -39,8 +39,8 @@ public class SpaceTrackService : ISpaceTrackService
     {
         if (from == null)
         {
-            from = _tleRepository
-                .GetDateTimeOfLastUploadedTLE();
+            from = await _tleRepository
+                .GetDateTimeOfLastUploadedTLEAsync();
         }
 
         Uri request = FormGetTLEsFromRangeRequestUrl(

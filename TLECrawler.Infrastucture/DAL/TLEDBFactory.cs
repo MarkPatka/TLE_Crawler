@@ -5,10 +5,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Data;
 using System.Data.Common;
-using System.Security.Principal;
 using TLECrawler.Application.DAL;
 using TLECrawler.Domain.Common.Configurations;
-using TLECrawler.Domain.UserModel;
 
 namespace TLECrawler.Infrastructure.DAL;
 
@@ -64,9 +62,9 @@ public class TLEDBFactory : ITLEDBFactory
         {
             var options = _databaseOptions.Value;
 
-            string Source   = _protector.Unprotect(options.DataSource);
-            string Catalog  = _protector.Unprotect(options.InitialCatalog);
-            string User     = _protector.Unprotect(options.UserID);
+            string Source = _protector.Unprotect(options.DataSource);
+            string Catalog = _protector.Unprotect(options.InitialCatalog);
+            string User = _protector.Unprotect(options.UserID);
             string Password = _protector.Unprotect(options.Password);
 
             string cs =
@@ -93,6 +91,44 @@ public class TLEDBFactory : ITLEDBFactory
         else
         {
             return SetConnection(connectionString);
+        }
+    }
+    public async Task<SqlConnection> InitializeConnectionAsync()
+    {
+        _cache.TryGetValue<string>("dbConnection", out string? connectionString);
+        if (string.IsNullOrEmpty(connectionString))
+        {
+            var options = _databaseOptions.Value;
+
+            string Source   = _protector.Unprotect(options.DataSource);
+            string Catalog  = _protector.Unprotect(options.InitialCatalog);
+            string User     = _protector.Unprotect(options.UserID);
+            string Password = _protector.Unprotect(options.Password);
+
+            string cs =
+                $"Data Source={Source};" +
+                $"Initial Catalog={Catalog};" +
+                $"User ID={User};" +
+                $"Password={Password};" +
+                $"Connect Timeout={options.Timeout};" +
+                $"Encrypt=True;" +
+                $"Pooling=True;" +
+                $"Trust Server Certificate=True;";
+
+            if (SqlServerConnected(cs))
+            {
+                _cache.Set("dbConnection", cs, new MemoryCacheEntryOptions()
+                    .SetAbsoluteExpiration(TimeSpan.FromDays(1)));
+
+                return await SetConnectionAsync(cs);
+            }
+
+            _logger.LogError("Databese connection failed");
+            throw new Exception("Databese connection failed");
+        }
+        else
+        {
+            return await SetConnectionAsync(connectionString);
         }
     }
 
@@ -179,7 +215,11 @@ public class TLEDBFactory : ITLEDBFactory
         }     
     }
     
-    public void ExecuteStoredProcedure(SqlConnection connection, string procedureName, SqlParameter[] sqlParameters, SqlTransaction? transaction = null)
+    public void ExecuteStoredProcedure(
+        SqlConnection connection, 
+        string procedureName, 
+        SqlParameter[] sqlParameters,
+        SqlTransaction? transaction = null)
     {
         SqlCommand command = new(procedureName);
         try
@@ -199,9 +239,13 @@ public class TLEDBFactory : ITLEDBFactory
         }
     }
 
-    public async Task<int> ExecuteStoredProcedureAsync(SqlConnection connection, string procedureName, SqlParameter[] sqlParameters, SqlTransaction? transaction = null)
+    public async Task<SqlDataReader> ExecuteStoredProcedureAsync(
+        SqlConnection connection, 
+        string procedureName, 
+        SqlParameter[] sqlParameters, 
+        SqlTransaction? transaction = null)
     {
-        SqlCommand command = new(procedureName) 
+        using SqlCommand command = new(procedureName) 
         {
             Transaction = transaction ?? null,
             CommandType = CommandType.StoredProcedure,
@@ -211,8 +255,8 @@ public class TLEDBFactory : ITLEDBFactory
         
         try
         {
-            var result = await command.ExecuteNonQueryAsync();
-            return result;
+            var reader = await command.ExecuteReaderAsync();
+            return reader;
         }
         catch (DbException ex) 
         {
@@ -220,6 +264,21 @@ public class TLEDBFactory : ITLEDBFactory
         }        
     }
 
+    private async Task<SqlConnection> SetConnectionAsync(string cs)
+    {
+        var sqlConnection = new SqlConnection(cs);
+        try
+        {
+            await sqlConnection.OpenAsync();
+        }
+        catch (Exception exception)
+        {
+            string msg = "An error occurred while connecting to the database";            
+            _logger.LogError(exception, "{MSG}", msg);
+            throw new Exception(msg, exception);
+        }
+        return sqlConnection;
+    }
     private SqlConnection SetConnection(string cs)
     {
         var sqlConnection = new SqlConnection(cs);
@@ -229,12 +288,12 @@ public class TLEDBFactory : ITLEDBFactory
         }
         catch (Exception exception)
         {
-            string msg = "An error occurred while connecting to the database";            
+            string msg = "An error occurred while connecting to the database";
             _logger.LogError(exception, "{MSG}", msg);
             throw new Exception(msg, exception);
         }
         return sqlConnection;
-    }   
+    }
     private static bool SqlServerConnected(string connectionString)
     {
         using SqlConnection connection = new(connectionString);
@@ -250,6 +309,27 @@ public class TLEDBFactory : ITLEDBFactory
         finally
         {
             connection.Close();
+        }
+    }
+
+    public async Task<int> ExecuteStoredProcedureAsyncAsNonQueryAsync(
+        SqlConnection connection, string procedureName, SqlParameter[] sqlParameters, SqlTransaction? transaction = null)
+    {
+        using SqlCommand command = new(procedureName)
+        {
+            Transaction = transaction ?? null,
+            CommandType = CommandType.StoredProcedure,
+            Connection = connection,
+        };
+        command.Parameters.AddRange(sqlParameters);
+
+        try
+        {
+            return await command.ExecuteNonQueryAsync();
+        }
+        catch (DbException ex)
+        {
+            throw new Exception($"Procedure ({procedureName}) execution failed.", ex);
         }
     }
 }

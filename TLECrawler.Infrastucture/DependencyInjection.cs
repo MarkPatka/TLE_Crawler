@@ -64,7 +64,12 @@ public static class DependencyInjection
                 client.DefaultRequestHeaders.Accept.Add(
                     new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             })
-            .SetHandlerLifetime(TimeSpan.FromMinutes(30));
+            .SetHandlerLifetime(TimeSpan.FromHours(2))
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
+                UseCookies = true,
+                CookieContainer = new System.Net.CookieContainer()
+            });
 
         return services;
     }

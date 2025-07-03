@@ -1,17 +1,14 @@
-﻿using Microsoft.AspNetCore.DataProtection;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using System.Net.Http.Json;
 using TLECrawler.Application.Services;
 using TLECrawler.Domain.Common.Configurations;
 using TLECrawler.Domain.UserModel;
-using TLECrawler.Infrastructure.Services.BackgroundServices;
 
 namespace TLECrawler.Infrastructure.Services;
 
 public class AuthenticationService : IAuthenticationService
 {
     private readonly IOptions<SpaceTrackSettings> _spaceTrackUrls;
-
     private readonly HttpClient _httpClient;
 
     public AuthenticationService(

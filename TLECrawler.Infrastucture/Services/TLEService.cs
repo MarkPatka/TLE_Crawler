@@ -103,7 +103,8 @@ public class TLEService : ITLEService
         foreach (var batch in batches)
         {
             var hashCodes = batch.Select(tle => tle.Hash);
-            List<TLE> groupResult = await _tleRepository.GetByHashes(hashCodes);
+            //List<TLE> groupResult = await _tleRepository.GetByHashesAsync(hashCodes);
+            List<TLE> groupResult = await _tleRepository.GetByTvpHashesAsync(hashCodes);
             PersistedTLEs.AddRange(groupResult);
         }
         if (PersistedTLEs.Count > 0)

@@ -45,6 +45,9 @@ public static class TLESQL
         query += $"@p{batchSize})";
         return query;
     }
+    public static string GetBatchByHashesQuery() =>
+        @"SELECT * FROM TLEs t INNER JOIN @Hashes h ON t.Hash = h.Hash";
+
     public static string FetchBatchFromPartitionByHash(int offset, int batchSize, int hashCodesCount, int partitionYear)
     {
         string query =
