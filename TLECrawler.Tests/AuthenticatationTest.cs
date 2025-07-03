@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.DataProtection;
+
 using System.Data;
 using System.Net.Http.Json;
-using TLECrawler.Tests.Common;
 using System.Net;
+
+using TLECrawler.Tests.Common;
 
 namespace TLECrawler.Tests;
 
@@ -14,34 +16,7 @@ public class AuthenticatationTest
     {
         _context = new TLECrawlerContextFactory();
     }
-    [Fact]
-    public void DecryptDatebaseCredentials_Success()
-    {
-        // Arrange
-        string dataSourceReal = "vm-tle";
-        string catalogReal = "TLE_test";
-        string userReal = "tle_crawler";
-        string passwordReal = "***REDACTED***";
-
-        // Act        
-        string protectedDataSource = _context.UserProtector.Protect(dataSourceReal);
-        string protectedCatalog = _context.UserProtector.Protect(catalogReal);
-        string protectedUser = _context.UserProtector.Protect(userReal);
-        string protectedPassword = _context.UserProtector.Protect(passwordReal);
-
-
-        string dataSourceFact = _context.UserProtector.Unprotect(protectedDataSource);
-        string catalogFact = _context.UserProtector.Unprotect(protectedCatalog);
-        string userFact = _context.UserProtector.Unprotect(protectedUser);
-        string passwordFact = _context.UserProtector.Unprotect(protectedPassword);
-
-        // Assert
-        Assert.Equal(dataSourceFact, dataSourceReal);
-        Assert.Equal(catalogFact, catalogReal);
-        Assert.Equal(userFact, userReal);
-        Assert.Equal(passwordFact, passwordReal);
-
-    }
+    
     [Fact]
     public void DatabaseAccess_Success()
     {

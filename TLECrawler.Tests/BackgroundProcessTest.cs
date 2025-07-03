@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace TLECrawler.Tests;
 
-namespace TLECrawler.Tests
+public class BackgroundProcessTest
 {
-    internal class BackgroundProcessTest
-    {
-    }
 }
