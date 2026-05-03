@@ -1,6 +1,6 @@
 # TLE Crawler
 
-> **Studying project.** This repository is an educational sandbox where the author practiced two specific topics in depth:
+> Practiced two specific topics in depth:
 >
 > 1. **The "Modules" pattern for ASP.NET Core Minimal API** — a way to keep endpoint registration and DI wiring grouped by feature instead of dumped into `Program.cs`.
 > 2. **Raw ADO.NET (`Microsoft.Data.SqlClient`)** — direct `SqlConnection` / `SqlCommand` / `SqlDataReader` usage, transactions, stored procedures, table-valued parameters and `SqlBulkCopy`, with no ORM in front of them.
