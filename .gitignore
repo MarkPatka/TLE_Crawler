@@ -20,6 +20,9 @@
 appsettings.json
 appsettings.Development.json
 
+### DataProtection keys (must never be committed) ###
+**/AppData/key-*.xml
+
 # Build results
 [Bb]in/
 [Oo]bj/

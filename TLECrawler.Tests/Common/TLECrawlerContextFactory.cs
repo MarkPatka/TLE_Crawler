@@ -48,18 +48,30 @@ public class TLECrawlerContextFactory : IDisposable
     }
     private SqlConnection InitializeSqlConnection()
     {
-        string cs =
-                $"Data Source=vm-tle;" +
-                $"Initial Catalog=TLE_test;" +
-                $"User ID=tle_crawler;" +
-                $"Password=***REDACTED***;" +
-                $"Trust Server Certificate=True;";
+        string? cs = Environment.GetEnvironmentVariable("TLECRAWLER_TEST_DB_CONNECTION");
+
+        if (string.IsNullOrWhiteSpace(cs))
+        {
+            throw new InvalidOperationException(
+                "Test DB connection string is not configured. " +
+                "Set the TLECRAWLER_TEST_DB_CONNECTION environment variable.");
+        }
 
         return new SqlConnection(cs);
     }
     private User InitializeUser()
     {
-        return new User("***REDACTED***", "***REDACTED***");
+        string? identity = Environment.GetEnvironmentVariable("TLECRAWLER_TEST_USER_IDENTITY");
+        string? password = Environment.GetEnvironmentVariable("TLECRAWLER_TEST_USER_PASSWORD");
+
+        if (string.IsNullOrWhiteSpace(identity) || string.IsNullOrWhiteSpace(password))
+        {
+            throw new InvalidOperationException(
+                "Test user credentials are not configured. " +
+                "Set TLECRAWLER_TEST_USER_IDENTITY and TLECRAWLER_TEST_USER_PASSWORD environment variables.");
+        }
+
+        return new User(identity, password);
     }
     private IDataProtector InitializeProtector(string purpose)
     {

@@ -5,5 +5,5 @@ namespace TLECrawler.Application.Services;
 public interface IUserService
 {
     public User GetUserCredentials();
-    public User EncryptUserCredentials();
+    public User EncryptUserCredentials(User user);
 }

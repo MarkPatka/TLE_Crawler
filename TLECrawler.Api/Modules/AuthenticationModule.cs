@@ -23,9 +23,9 @@ public class AuthenticationModule : IModule
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
     {
 #if DEBUG
-        endpoints.MapGet("/GetEncryptedUser", (IUserService user) =>
+        endpoints.MapPost("/GetEncryptedUser", (User input, IUserService user) =>
         {
-            var res = user.EncryptUserCredentials(); 
+            var res = user.EncryptUserCredentials(input);
 
             return Results.Ok(res);
         });

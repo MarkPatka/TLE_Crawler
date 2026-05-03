@@ -21,13 +21,12 @@ public class UserService : IUserService
             .CreateProtector("UserCredentials");
     }
 
-    public User EncryptUserCredentials()
+    public User EncryptUserCredentials(User user)
     {
-        string identity= _protector
-            .Protect("***REDACTED***");
+        ArgumentNullException.ThrowIfNull(user);
 
-        string password = _protector
-            .Protect("***REDACTED***");
+        string identity = _protector.Protect(user.Identity);
+        string password = _protector.Protect(user.Password);
 
         return new User(identity, password);
     }
